@@ -1,6 +1,7 @@
 package fr.gsb.rv.dr;
 
 import fr.gsb.rv.dr.component.Modal;
+import fr.gsb.rv.dr.entites.Praticiens;
 import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.panneaux.PanneauAccueil;
@@ -11,14 +12,13 @@ import fr.gsb.rv.dr.technique.Session;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
+import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -35,6 +35,15 @@ public class AppGSB extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+
+        TableView tablePraticiens = new TableView();
+        tablePraticiens.setEditable(true);
+
+        TableColumn numPra = new TableColumn("Numero : ");
+        TableColumn nomPra = new TableColumn("Nom : ");
+        TableColumn prenPra = new TableColumn("Prenom : ");
+
+        tablePraticiens.getColumns().addAll(numPra, nomPra, prenPra);
 
         Visiteur visiteur = new Visiteur();
         MenuBar barreMenus = new MenuBar();
@@ -71,6 +80,15 @@ public class AppGSB extends Application {
 
         itemPraticiensHesitants.setOnAction(actionEvent ->{
             System.out.println("[RAPPORTS]" + " " + visiteur.getNom() + " " + visiteur.getPrenom());
+            try {
+                ArrayList<Praticiens> praticiens = ModeleGsbRv.getPraticiens();
+                for(Praticiens pra : praticiens){
+                    
+                }
+            } catch (ConnexionException e) {
+                throw new RuntimeException(e);
+            }
+            root.setCenter(tablePraticiens);
         });
         itemRapportsConsulter.setOnAction(actionEvent ->{
             System.out.println("[PRATICIENS]" + " " + visiteur.getNom() + " " + visiteur.getPrenom());

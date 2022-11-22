@@ -1,5 +1,6 @@
 package fr.gsb.rv.dr.modeles;
 
+import fr.gsb.rv.dr.entites.Praticiens;
 import fr.gsb.rv.dr.entites.Visiteur;
 import fr.gsb.rv.dr.technique.ConnexionBD;
 import fr.gsb.rv.dr.technique.ConnexionException;
@@ -7,6 +8,7 @@ import fr.gsb.rv.dr.technique.ConnexionException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class ModeleGsbRv {
 
@@ -43,5 +45,30 @@ public class ModeleGsbRv {
             return null ;
         }
     }
+    public static ArrayList<Praticiens> getPraticiens() throws ConnexionException {
 
+        ArrayList<Praticiens> praticiens = new ArrayList<Praticiens>();
+
+        Connection connexion = ConnexionBD.getConnexion() ;
+
+        String requeteGetPraticiens
+                ="SELECT * "
+                +"FROM Praticien ";
+
+        try {
+            PreparedStatement requetePreparee = connexion.prepareStatement(requeteGetPraticiens);
+            ResultSet resultat = requetePreparee.executeQuery();
+            while(resultat.next()){
+                praticiens.add(new Praticiens(
+                        resultat.getString("pra_nom"),
+                        resultat.getString("pra_prenom"),
+                        resultat.getInt("pra_num")
+                ));
+            }
+            return praticiens;
+        }catch(Exception e){
+                System.out.println("BALISE ERREUR REQUETE PREP " + e.getMessage());
+            }
+        return null;
+    }
 }

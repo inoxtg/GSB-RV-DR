@@ -35,18 +35,18 @@ public class TestBDD {
         System.out.println("Successfully connected");
 
         try {
-            System.out.println("TRY 3");
             connection.close();
+            System.out.println("TRY 3");
         } catch (SQLException e) {
             System.out.println("CATCH 3");
 
             System.exit(-3);
         }
-        try {
-            System.out.println(ModeleGsbRv.seConnecter("a131","test").toString());
-        } catch (ConnexionException e) {
-            throw new RuntimeException(e);
+        try{
+            System.out.println(ModeleGsbRv.getPraticiens());
+            System.out.println("TRY 4 " );
+        }catch(Exception e){
+            System.out.println("CATCH 4 " + e.getMessage());
         }
-
     }
 }

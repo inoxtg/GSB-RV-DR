@@ -62,7 +62,9 @@ public class ModeleGsbRv {
                 praticiens.add(new Praticiens(
                         resultat.getString("pra_nom"),
                         resultat.getString("pra_prenom"),
-                        resultat.getInt("pra_num")
+                        resultat.getInt("pra_num"),
+                        resultat.getString("pra_ville"),
+                        resultat.getDouble("pra_coefnotoriete")
                 ));
             }
             return praticiens;

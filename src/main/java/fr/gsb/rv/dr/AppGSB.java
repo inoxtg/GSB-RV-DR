@@ -36,15 +36,6 @@ public class AppGSB extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
 
-        TableView tablePraticiens = new TableView();
-        tablePraticiens.setEditable(true);
-
-        TableColumn numPra = new TableColumn("Numero : ");
-        TableColumn nomPra = new TableColumn("Nom : ");
-        TableColumn prenPra = new TableColumn("Prenom : ");
-
-        tablePraticiens.getColumns().addAll(numPra, nomPra, prenPra);
-
         Visiteur visiteur = new Visiteur();
         MenuBar barreMenus = new MenuBar();
         BorderPane root = new BorderPane();
@@ -79,19 +70,11 @@ public class AppGSB extends Application {
         primaryStage.setTitle("GSB-RV-DR");
 
         itemPraticiensHesitants.setOnAction(actionEvent ->{
-            System.out.println("[RAPPORTS]" + " " + visiteur.getNom() + " " + visiteur.getPrenom());
-            try {
-                ArrayList<Praticiens> praticiens = ModeleGsbRv.getPraticiens();
-                for(Praticiens pra : praticiens){
-                    
-                }
-            } catch (ConnexionException e) {
-                throw new RuntimeException(e);
-            }
-            root.setCenter(tablePraticiens);
+            System.out.println("[PRATICIENS]" + " " + visiteur.getNom() + " " + visiteur.getPrenom());
+            PanneauPraticiens.show(root);
         });
         itemRapportsConsulter.setOnAction(actionEvent ->{
-            System.out.println("[PRATICIENS]" + " " + visiteur.getNom() + " " + visiteur.getPrenom());
+            System.out.println("[RAPPORTS]" + " " + visiteur.getNom() + " " + visiteur.getPrenom());
         });
 
         itemFichierSeConnecter.setOnAction(actionEvent -> {

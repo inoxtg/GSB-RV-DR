@@ -10,7 +10,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
-public class PanneauAccueil extends Panel {
+public class PanneauAccueil {
 
     public static void show(BorderPane panel) throws FileNotFoundException{
 

@@ -390,19 +390,19 @@ INSERT INTO `Motif`(`mot_libelle`) VALUES
 ('controle suite à une plainte');
 
 
-INSERT INTO `RapportVisite`(`vis_matricule`,`rap_num`,`rap_date_visite`,`rap_bilan`,`pra_num`,`mot_num`,`rap_coef_confiance`) VALUES
-('b4',1, '2022-11-25', 'très bien continuer comme ca!', 1, 1, 0),
-('b4',2, '2022-11-26', 'très bien continuer comme ca!', 1, 1, 1),
-('b4',3, '2022-11-27', 'très bien continuer comme ca!', 1, 1, 1),
-('b4',4, '2022-11-28', 'très bien continuer comme ca!', 1, 1, 1),
-('b4',5, '2022-11-25', 'très bien continuer comme ca!', 2, 1, 3),
-('b4',6, '2022-11-26', 'très bien continuer comme ca!', 2, 1, 4),
-('b4',7, '2022-11-27', 'très bien continuer comme ca!', 2, 1, 4),
-('b4',8, '2022-11-28', 'très bien continuer comme ca!', 2, 1, 5),
-('b4',9, '2022-11-25', 'très bien continuer comme ca!', 3, 1, 2),
-('b4',10, '2022-11-26', 'très bien continuer comme ca!', 3, 1, 2),
-('b4',11, '2022-11-27', 'très bien continuer comme ca!', 3, 1, 3),
-('b4',12, '2022-11-29', 'très bien continuer comme ca!', 3, 1, 3);
+INSERT INTO `RapportVisite`(`vis_matricule`,`rap_num`,`rap_date_visite`,`rap_bilan`,`pra_num`,`mot_num`,`rap_coef_confiance`,`rap_date_redaction`) VALUES
+('b4',1, '2022-11-25', 'très bien continuer comme ca!', 1, 1, 0,'2022-10-25'),
+('b4',2, '2022-11-26', 'très bien continuer comme ca!', 1, 1, 1,'2022-10-25'),
+('b4',3, '2022-11-27', 'très bien continuer comme ca!', 1, 1, 1,'2022-10-25'),
+('b4',4, '2022-11-28', 'très bien continuer comme ca!', 1, 1, 1,'2022-10-25'),
+('b4',5, '2022-11-25', 'très bien continuer comme ca!', 2, 1, 3,'2022-10-25'),
+('b4',6, '2022-11-26', 'très bien continuer comme ca!', 2, 1, 4,'2022-10-25'),
+('b4',7, '2022-11-27', 'très bien continuer comme ca!', 2, 1, 4,'2022-10-25'),
+('b4',8, '2022-11-28', 'très bien continuer comme ca!', 2, 1, 5,'2022-10-25'),
+('b4',9, '2022-11-25', 'très bien continuer comme ca!', 3, 1, 2,'2022-10-25'),
+('b4',10, '2022-11-26', 'très bien continuer comme ca!', 3, 1, 2,'2022-10-25'),
+('b4',11, '2022-11-27', 'très bien continuer comme ca!', 3, 1, 3,'2022-10-25'),
+('b4',12, '2022-11-29', 'très bien continuer comme ca!', 3, 1, 3,'2022-10-25');
 
 
 /*

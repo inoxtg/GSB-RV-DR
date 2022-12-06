@@ -17,6 +17,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
+
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -105,6 +107,11 @@ public class AppGSB extends Application {
         });
 
         itemFichierSeDeconnecter.setOnAction(actionEvent -> {
+            try {
+                PanneauAccueil.show(root);
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
             menuPraticiens.setDisable(true);
             menuRapports.setDisable(true);
             itemFichierSeDeconnecter.setDisable(true);

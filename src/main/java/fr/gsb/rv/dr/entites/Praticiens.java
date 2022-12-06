@@ -1,37 +1,28 @@
 package fr.gsb.rv.dr.entites;
 
+import java.time.LocalDate;
+
 public class Praticiens {
+
+    private int numero;
     private String nom;
     private String prenom;
-    private int numero;
     private String ville;
     private Double coefNotoriete;
+    private LocalDate dateDerniereVisite;
+    private int dernierCoefConfiance;
 
-    public Praticiens(String nom, String prenom, int numero, String ville, Double coefNotoriete) {
+    public Praticiens(int numero, String nom, String prenom, String ville, Double coefNotoriete, LocalDate dateDerniereVisite, int dernierCoefConfiance) {
+        this.numero = numero;
         this.nom = nom;
         this.prenom = prenom;
-        this.numero = numero;
         this.ville = ville;
         this.coefNotoriete = coefNotoriete;
+        this.dateDerniereVisite = dateDerniereVisite;
+        this.dernierCoefConfiance = dernierCoefConfiance;
     }
 
     public Praticiens() {
-    }
-
-    public String getNom() {
-        return nom;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public String getPrenom() {
-        return prenom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
     }
 
     public int getNumero() {
@@ -40,6 +31,14 @@ public class Praticiens {
 
     public void setNumero(int numero) {
         this.numero = numero;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public String getVille() {
@@ -58,22 +57,41 @@ public class Praticiens {
         this.coefNotoriete = coefNotoriete;
     }
 
+    public LocalDate getDateDerniereVisite() {
+        return dateDerniereVisite;
+    }
+
+    public void setDateDerniereVisite(LocalDate dateDerniereVisite) {
+        this.dateDerniereVisite = dateDerniereVisite;
+    }
+
+    public int getDernierCoefConfiance() {
+        return dernierCoefConfiance;
+    }
+
+    public void setDernierCoefConfiance(int dernierCoefConfiance) {
+        this.dernierCoefConfiance = dernierCoefConfiance;
+    }
+
+    public String getPrenom() {
+        return prenom;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
+    }
+
     @Override
     public String toString() {
         return "Praticiens{" +
-                "nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", numero=" + numero +
+                "numero=" + numero +
+                ", nom='" + nom + '\'' +
                 ", ville='" + ville + '\'' +
                 ", coefNotoriete=" + coefNotoriete +
+                ", dateDerniereVisite=" + dateDerniereVisite +
+                ", dernierCoefConfiance=" + dernierCoefConfiance +
                 '}';
     }
 
-    public void set(Praticiens pra){
-        this.nom = pra.nom;
-        this.prenom = pra.prenom;
-        this.numero = pra.numero;
-        this.coefNotoriete = pra.coefNotoriete;
-        this.ville = pra.ville;
-    }
+
 }

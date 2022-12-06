@@ -1,11 +1,17 @@
 package fr.gsb.rv.dr.test;
 
+import fr.gsb.rv.dr.entites.Praticiens;
 import fr.gsb.rv.dr.modeles.ModeleGsbRv;
 import fr.gsb.rv.dr.technique.ConnexionException;
+import fr.gsb.rv.dr.utilitaires.ComparateurCoefConfiance;
+import fr.gsb.rv.dr.utilitaires.ComparateurCoefNotoriete;
+import fr.gsb.rv.dr.utilitaires.ComparateurDateVisite;
+import org.controlsfx.control.PropertySheet;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.*;
 
 
 public class TestBDD {
@@ -43,8 +49,27 @@ public class TestBDD {
             System.exit(-3);
         }
         try{
-            System.out.println(ModeleGsbRv.getPraticiens());
-            System.out.println("TRY 4 " );
+            System.out.println("TRY 4.1 " + "\n");
+            List<Praticiens> pras = new ArrayList<>();
+            for(Praticiens pra : ModeleGsbRv.getPraticiens()){
+                pras.add(pra);
+                System.out.println(pra.toString());
+            }
+            System.out.println("TRY 4.2 " + "\n");
+            Collections.sort(pras, new ComparateurCoefConfiance());
+            for(Praticiens pra : pras){
+                System.out.println(pra.toString());
+            }
+            System.out.println("TRY 4.3 " + "\n");
+            Collections.sort(pras, new ComparateurCoefNotoriete());
+            for(Praticiens pra : pras){
+                System.out.println(pra.toString());
+            }
+            System.out.println("TRY 4.4 " + "\n");
+            Collections.sort(pras, new ComparateurDateVisite());
+            for(Praticiens pra : pras){
+                System.out.println(pra.toString());
+            }
         }catch(Exception e){
             System.out.println("CATCH 4 " + e.getMessage());
         }

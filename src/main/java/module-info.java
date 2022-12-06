@@ -8,5 +8,7 @@ module fr.gsb.rv.dr{
     requires org.mariadb.jdbc;
 
     opens fr.gsb.rv.dr to javafx.fxml;
+    opens fr.gsb.rv.dr.entites to javafx.base;
+
     exports fr.gsb.rv.dr;
 }

@@ -19,8 +19,8 @@ public class PanneauAccueil extends Panel {
 
         ImageView imageView = new ImageView(img);
 
-        imageView.setFitHeight(500);
-        imageView.setFitWidth(500);
+        imageView.setFitHeight(800);
+        imageView.setFitWidth(800);
         imageView.setPreserveRatio(true);
 
         panel.setCenter(imageView);

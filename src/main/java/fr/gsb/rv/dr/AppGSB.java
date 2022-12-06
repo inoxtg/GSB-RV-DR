@@ -17,8 +17,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Pair;
-
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -43,7 +42,7 @@ public class AppGSB extends Application {
         PanneauAccueil.show(root);
         root.setTop(barreMenus);
 
-        Scene scene = new Scene(root,500,500);
+        Scene scene = new Scene(root,800,800);
         primaryStage.setScene(scene);
         primaryStage.show();
 

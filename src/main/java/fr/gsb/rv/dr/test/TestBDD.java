@@ -77,7 +77,7 @@ public class TestBDD {
         try {
             System.out.println("TRY 5 " + "\n");
             List<RapportVisite> rap = new ArrayList<>();
-            for (RapportVisite r : ModeleGsbRv.getRapportsVisites("b4",11,2022)) {
+            for (RapportVisite r : Objects.requireNonNull(ModeleGsbRv.getRapportsVisites("b4", 11, 2022))) {
                 rap.add(r);
                 System.out.println("\n" + "\n" + "--------------RAPPORTS--------------" + "\n" + "\n");
                 System.out.println(r.toString() + "\n");

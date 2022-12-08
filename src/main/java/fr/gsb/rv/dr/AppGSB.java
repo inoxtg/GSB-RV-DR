@@ -64,8 +64,12 @@ public class AppGSB extends Application {
                 MenuItem itemPraticiensHesitants = new MenuItem("Hésitants");
                 menuPraticiens.getItems().add(itemPraticiensHesitants);
 
-        menuPraticiens.setDisable(true);
-        menuRapports.setDisable(true);
+        /*
+            FACILITER TEST
+            menuPraticiens.setDisable(true);
+            menuRapports.setDisable(true);
+        */
+
         itemFichierSeDeconnecter.setDisable(true);
 
         primaryStage.setTitle("GSB-RV-DR");
@@ -76,6 +80,7 @@ public class AppGSB extends Application {
         });
         itemRapportsConsulter.setOnAction(actionEvent ->{
             System.out.println("[RAPPORTS]" + " " + visiteur.getNom() + " " + visiteur.getPrenom());
+            PanneauRapports.show(root);
         });
 
         itemFichierSeConnecter.setOnAction(actionEvent -> {

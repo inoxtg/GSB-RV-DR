@@ -103,4 +103,58 @@
             Le Visiteur
         Lors de la selection d'un utilisateur pour affichers ses rapports de visite.
         Indique : "La séléction que vous avez saisie est incomplète"
-        
+
+# BDD
+
+    --La connexion à la BDD en local, se fait via un singleton.
+    
+    --La base est hebergée en local sur le poste qui lance l'application.
+
+    --Bdd SQL (mariadb)
+
+    --Connector jdbc mariadb
+
+### TABLES  :
+		+-----------------+
+		| Tables_in_gsbrv |
+		+-----------------+
+		| activitecompl   |
+		| composant       |
+		| connaitre       |
+		| constituer      |
+		| dosage          |
+		| famille         |
+		| formuler        |
+		| interagir       |
+		| inviter         |
+		| laboratoire     |
+		| medicament      |
+		| motif           |
+		| offrir          |
+		| posseder        |
+		| praticien       |
+		| prescrire       |
+		| presentation    |
+		| rapportvisite   |
+		| realiser        |
+		| region          |
+		| secteur         |
+		| specialite      |
+		| travailler      |
+		| typeindividu    |
+		| typepraticien   |
+		| visiteur        |
+		+-----------------+
+
+## Modèle (ModeleGsbRv.java)
+    
+### CONNECTION
+    
+    --Connection utilisateur
+        Entries : matricule, mdp
+        Cherche l'utilisateur en fonction de son matricule et mot de passe, du fait qu'il ai le rôle de délégué, mais également que ce rôle soit le dernier qu'il lui ai été attribué
+        Output : Nom et Prenom du Visiteur retourné, mis sous forme de L'entité Visiteur
+
+### Recuperation
+
+    

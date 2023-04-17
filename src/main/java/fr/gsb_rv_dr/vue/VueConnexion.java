@@ -19,7 +19,7 @@ public class VueConnexion extends Dialog<Pair<String,String>> {
         this.setHeaderText(saisie);
 
         TextField matricule = new TextField();
-        TextField mdp = new TextField();
+        TextField mdp = new PasswordField();
 
         VBox vbSaisies = new VBox();
         vbSaisies.getChildren().add(new Label("Matricule :")) ;

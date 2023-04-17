@@ -40,10 +40,10 @@ public class App extends Application {
 
     static class PanneauAccueil {
         public static void show(BorderPane panneauAccueil) {
-            Image img = null;
-            img = new Image("C:\\Users\\Admin\\Desktop\\PROJETS COURS BTS 2\\Mehdi\\JavaFX\\JavaFX\\IdeaProjects\\GSB_RV_DR\\src\\main\\resources\\fr\\gsb_rv_dr\\GSB.png");
-            String text = "Bienvenue";
-            panneauAccueil.setCenter(new ImageView(img));
+//            Image img = null;
+//            img = new Image("C:\\Users\\Admin\\Desktop\\PROJETS COURS BTS 2\\Mehdi\\JavaFX\\JavaFX\\IdeaProjects\\GSB_RV_DR\\src\\main\\resources\\fr\\gsb_rv_dr\\GSB.png");
+//            String text = "Bienvenue";
+//            panneauAccueil.setCenter(new ImageView(img));
         }
     }
 
@@ -101,7 +101,7 @@ public class App extends Application {
 
 
 
-            Button btnValide = new Button("Validé");
+            Button btnValide = new Button("Valider");
 
             vBoxRapport.setPadding(new Insets(10));
             vBoxRapport.setSpacing(10);

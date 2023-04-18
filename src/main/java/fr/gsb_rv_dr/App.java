@@ -61,6 +61,8 @@ public class App extends Application {
 
         public static List<RapportVisite> rapportVisite = new ArrayList<>();
 
+        public static RapportVisite rapportVisiteSelected = new RapportVisite();
+
         public static  List<RapportVisite> rafraichir(String visiteur, int mois, String annee) throws ConnexionException {
 
             List<RapportVisite> listRapportVisite = ModeleGsbRv.getRapportVisite(visiteur,mois,annee);
@@ -230,6 +232,7 @@ public class App extends Application {
 
                             int indiceRapport = tabRapport.getSelectionModel().getSelectedIndex();
                             RapportVisite rapportVisite = tabRapport.getItems().get(indiceRapport);
+                            rapportVisiteSelected = rapportVisite;
 
                             try {
                                 ModeleGsbRv.setRapportVisiteLu(rapportVisite.getLeVisiteur().getMatricule(),rapportVisite.getNumero());

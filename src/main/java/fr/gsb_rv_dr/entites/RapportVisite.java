@@ -41,6 +41,9 @@ public class RapportVisite {
         this.lePraticien = lePraticien;
     }
 
+    public RapportVisite() {
+    }
+
 
     public int getNumero() {
         return numero;

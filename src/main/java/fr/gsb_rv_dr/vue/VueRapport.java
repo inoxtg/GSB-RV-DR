@@ -14,7 +14,7 @@ public class VueRapport extends Dialog {
     public String fermer = "Fermer";
 
 
-    public  String rapportVisite = App.PanneauRapport.rapportVisite.toString();
+    public  String rapportVisite = App.PanneauRapport.rapportVisiteSelected.toString();
 
     public VueRapport(){
         this.setTitle(titre);

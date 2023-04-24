@@ -10,9 +10,11 @@ import fr.gsb_rv_dr.technique.Session;
 import fr.gsb_rv_dr.utilitaires.ComparateurCoefConfiance;
 import fr.gsb_rv_dr.utilitaires.ComparateurCoefNotoriete;
 import fr.gsb_rv_dr.utilitaires.ComparateurDateVisite;
+import fr.gsb_rv_dr.utilitaires.ComparateurNombreVisites;
 import fr.gsb_rv_dr.vue.*;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -47,6 +49,152 @@ public class App extends Application {
         }
     }
 
+    public static class PanneauObjectif extends Pane {
+
+        private static final RadioButton rbNom = new RadioButton();
+        private static final RadioButton rbNombreVisite = new RadioButton();
+        private static TableView<Visiteur> tabVisiteur = new TableView<>();
+
+        public static List<Visiteur> visiteur = new ArrayList<>();
+
+        public static List<Visiteur> rafraichir() throws ConnexionException {
+
+            List<Visiteur> listVisiteur = ModeleGsbRv.getVisiteursByNbVisites();
+            return listVisiteur;
+        }
+
+        public static void show(BorderPane PanneauObjectif) throws ConnexionException {
+            VBox vBoxVisi = new VBox();
+            Label label = new Label("Sélectionner un critère de tri : ");
+            vBoxVisi.getChildren().add(label);
+
+            /**
+             *
+             * MAGIC NUMBER A CHANGER
+             */
+            int nbCritere = Session.getLeVisiteur().getCritereTri();
+            if(nbCritere == 1){
+                rbNom.setSelected(true);
+            }else if(nbCritere == 2){
+                rbNombreVisite.setSelected(true);
+            }else{
+                rbNom.setSelected(true);
+            }
+
+
+            rbNom.setText("Nom");
+            rbNombreVisite.setText("Nombre de visite");
+
+
+            ToggleGroup toggleGroup = new ToggleGroup();
+
+            rbNom.setToggleGroup(toggleGroup);
+            rbNombreVisite.setToggleGroup(toggleGroup);
+
+            HBox hBox = new HBox();
+            hBox.setSpacing(10);
+            hBox.getChildren().addAll(rbNom, rbNombreVisite);
+
+            hBox.setPadding(new Insets(10));
+
+            vBoxVisi.getChildren().add(hBox);
+
+
+            VBox vBox = new VBox();
+            PanneauObjectif.setCenter(vBox);
+
+            TableColumn<Visiteur, String> colNum = new TableColumn<Visiteur, String>("Nombre de visite :");
+            TableColumn<Visiteur, String> colMatr = new TableColumn<Visiteur, String>("Matricule :");
+            TableColumn<Visiteur, String> colNom = new TableColumn<Visiteur, String>("Nom : ");
+            TableColumn<Visiteur, String> colPrenom = new TableColumn<Visiteur, String>("Prenom : ");
+
+
+            colNum.setCellValueFactory(param -> {
+                String nbrVisi = param.getValue().getNbVisite().toString();
+                System.out.println(nbrVisi);
+                return new SimpleStringProperty(nbrVisi);
+            });
+            colMatr.setCellValueFactory(param -> {
+                String matr = param.getValue().getMatricule();
+                System.out.println("###################" + matr);
+                return new SimpleStringProperty(matr);
+            });
+            colNom.setCellValueFactory(param -> {
+                String nom = param.getValue().getNom();
+                System.out.println("###################" + nom);
+                return new SimpleStringProperty(nom);
+            });
+            colPrenom.setCellValueFactory(param -> {
+                String prenom = param.getValue().getPrenom();
+                return new SimpleStringProperty(prenom);
+            });
+
+            if (tabVisiteur.getColumns().isEmpty()) {
+                tabVisiteur.getColumns().addAll(colNum, colMatr, colNom, colPrenom);
+            }
+
+            vBox.getChildren().addAll(vBoxVisi, tabVisiteur);
+
+            try {
+                visiteur = rafraichir();
+                if (visiteur == null) {
+                    ObservableList<Visiteur> vide = FXCollections.observableArrayList();
+                    tabVisiteur.setItems(vide);
+                } else {
+                    ObservableList<Visiteur> vide = FXCollections.observableArrayList();
+                    tabVisiteur.getColumns().clear();
+                    tabVisiteur.getColumns().addAll(colNum, colMatr, colNom, colPrenom);
+                    tabVisiteur.setItems(FXCollections.observableList(vide));
+                    tabVisiteur.setItems(FXCollections.observableList(visiteur));
+                }
+
+            } catch (ConnexionException e) {
+                throw new RuntimeException(e);
+            }
+
+            rbNombreVisite.setOnAction((ActionEvent event) -> {
+                visiteur.sort(new ComparateurNombreVisites());
+                tabVisiteur.setItems(FXCollections.observableList(visiteur));
+                try {
+                    ModeleGsbRv.setVisiteurCritere(2, Session.getLeVisiteur().getMatricule());
+                } catch (ConnexionException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+            rbNom.setOnAction((ActionEvent event) -> {
+                visiteur.sort(new Comparator<Visiteur>() {
+                    @Override
+                    public int compare(Visiteur o1, Visiteur o2) {
+                        return 0;
+                    }
+                });
+                tabVisiteur.setItems(FXCollections.observableList(visiteur));
+                try {
+                    ModeleGsbRv.setVisiteurCritere(1, Session.getLeVisiteur().getMatricule());
+                } catch (ConnexionException e) {
+                    throw new RuntimeException(e);
+                }
+            });
+
+            tabVisiteur.setRowFactory(ligne -> {
+                return new TableRow<Visiteur>(){
+                    @Override
+                    protected void updateItem(Visiteur item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if(item!=null){
+                            if(item.getNbVisite() == 0){
+                                setStyle("-fx-background-color: red");
+                            }else{
+                                setStyle("-fx-background-color: cyan");
+                            }
+                        }
+                    }
+                };
+            });
+        }
+
+    }
 
    public static class PanneauRapport extends Pane{
 
@@ -69,10 +217,6 @@ public class App extends Application {
             return listRapportVisite;
 
         }
-
-
-
-
         public static void show(BorderPane PanneauRapport) throws ConnexionException {
 
 
@@ -135,19 +279,17 @@ public class App extends Application {
             colDateVisite.setCellValueFactory(new PropertyValueFactory<>("dateVisite"));
 
 
-            colDateVisite.setCellFactory(colonne -> {
-                return new TableCell<RapportVisite, LocalDate>() {
-                    protected void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
+            colDateVisite.setCellFactory(colonne -> new TableCell<>() {
+                protected void updateItem(LocalDate item, boolean empty) {
+                    super.updateItem(item, empty);
 
-                        if (empty) {
-                            setText("");
-                        } else {
-                            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
-                            setText(getItem().format(formatter));
-                        }
+                    if (empty) {
+                        setText("");
+                    } else {
+                        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu");
+                        setText(getItem().format(formatter));
                     }
-                };
+                }
             });
 
 
@@ -422,12 +564,14 @@ public class App extends Application {
         MenuItem itemQuitter = new MenuItem("Quitter");
 
         MenuItem itemConsulter= new MenuItem("Consulter");
+        MenuItem itemObjectif = new MenuItem("Objectifs");
 
         MenuItem itemHesitant= new MenuItem("Hésitants");
 
         PanneauAccueil.show(root);
 
         menuRapport.getItems().add(itemConsulter);
+        menuRapport.getItems().add(itemObjectif);
 
         menuPraticien.getItems().add(itemHesitant);
 
@@ -526,7 +670,18 @@ public class App extends Application {
                     }
                 }
         );
-
+        itemObjectif.setOnAction(
+                new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent event) {
+                        try {
+                            PanneauObjectif.show(root);
+                        } catch (ConnexionException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                }
+        );
 
         itemConsulter.setOnAction(
                 new EventHandler<ActionEvent>() {

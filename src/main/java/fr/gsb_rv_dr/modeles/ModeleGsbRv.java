@@ -21,7 +21,7 @@ public class ModeleGsbRv {
 
         Connection connexion = ConnexionBD.getConnexion();
 
-        String requete = "SELECT Visiteur.vis_matricule, vis_nom, vis_prenom "
+        String requete = "SELECT Visiteur.vis_matricule, vis_nom, vis_prenom, vis_critere "
                 + "FROM Visiteur "
                 + "INNER JOIN Travailler "
                 + "ON Visiteur.vis_matricule = Travailler.vis_matricule "
@@ -36,7 +36,7 @@ public class ModeleGsbRv {
             requetePreparee.setString(2, mdp);
             ResultSet resultat = requetePreparee.executeQuery();
             if (resultat.next()) {
-                Visiteur visiteur = new Visiteur(matricule, resultat.getString("vis_nom"), resultat.getString("vis_prenom"));
+                Visiteur visiteur = new Visiteur(matricule, resultat.getString("vis_nom"), resultat.getString("vis_prenom"), resultat.getInt("vis_critere"));
                 requetePreparee.close();
                 return visiteur;
             } else {
@@ -101,6 +101,46 @@ public class ModeleGsbRv {
         return null;
 
     }
+    public static List<Visiteur> getVisiteursByNbVisites() throws ConnexionException{
+        Connection connexion = ConnexionBD.getConnexion();
+
+        String requete = "SELECT Visiteur.vis_matricule ,vis_nom, vis_prenom " +
+                "from Visiteur ";
+        try {
+            PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement(requete);
+            ResultSet resultat = requetePreparee.executeQuery();
+            List<Visiteur> listVisiteurs = new ArrayList<>();
+                while (resultat.next()) {
+                    Visiteur visi2 = new Visiteur(resultat.getString("vis_matricule"), resultat.getString("vis_nom"), resultat.getString("vis_prenom"));
+                    visi2.setNbVisite(0);
+                    listVisiteurs.add(visi2);
+                }
+                return listVisiteurs;
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return null;
+    }
+
+    public static void setVisiteurCritere(int critere, String matr) throws ConnexionException{
+        Connection connexion = ConnexionBD.getConnexion();
+
+        String requete = "UPDATE Visiteur " +
+                "SET Visiteur.vis_critere = ? " +
+                "WHERE Visiteur.vis_matricule = ?";
+
+        try {
+            PreparedStatement requetePreparee = (PreparedStatement) connexion.prepareStatement(requete);
+            requetePreparee.setInt(1, critere);
+            requetePreparee.setString(2, matr);
+            ResultSet resultat = requetePreparee.executeQuery();
+
+        }catch(Exception e){
+            System.out.println("ERREUR UPODATE CRITERE : " + e.getMessage());
+        }
+    }
 
     public static List<RapportVisite> getRapportVisite(String matricule, int mois, String annee) throws ConnexionException {
 
@@ -147,6 +187,7 @@ public class ModeleGsbRv {
         return null;
 
     }
+
 
     public static boolean setRapportVisiteLu(String matricule, int numRapport) throws ConnexionException {
         Connection connexion = ConnexionBD.getConnexion();
